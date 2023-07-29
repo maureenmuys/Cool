@@ -1,8 +1,10 @@
 package com.mmuys.cool.controller;
 
 
+import com.mmuys.cool.dto.ProductDTO;
 import com.mmuys.cool.model.Category;
 import com.mmuys.cool.service.CategoryService;
+import com.mmuys.cool.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ public class AdminController {
 
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    ProductService productService;
 
     @GetMapping("/admin")
     public String adminHome(){
@@ -46,7 +50,6 @@ public class AdminController {
     public String deleteCat(@PathVariable int id){
          categoryService.removeCategoryById(id);
         return "redirect:/admin/categories";
-
     }
 
     @GetMapping("/admin/categories/update/{id}")
@@ -60,6 +63,20 @@ public class AdminController {
             return "404";
         }
     }
+
+    @GetMapping("/admin/products")
+    public String products( Model model){
+        model.addAttribute("products", productService.getAllProducts());
+        return "products";
+    }
+
+    @GetMapping("/admin/products/add")
+    public String productAddGet( Model model){
+        model.addAttribute("productDTO", new ProductDTO());
+        model.addAttribute("categories", categoryService.getAllCategory());
+        return "productsAdd";
+    }
+
 
 
 
