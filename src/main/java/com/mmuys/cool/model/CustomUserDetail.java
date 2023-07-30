@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class CustomerDetail extends User implements UserDetails {
+public class CustomUserDetail extends User implements UserDetails {
 
-    public CustomerDetail(User user) {
+    public CustomUserDetail(User user) {
         super(user);
     }
 
