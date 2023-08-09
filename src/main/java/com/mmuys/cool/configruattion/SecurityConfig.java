@@ -1,9 +1,12 @@
 package com.mmuys.cool.configruattion;
 
+import com.mmuys.cool.provider.CustomAuthenticationProvider;
 import com.mmuys.cool.service.CustomerUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -25,26 +28,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     GoolgeOAuth2SuccesHandler goolgeOAuth2SuccesHandler;
-    @Autowired
-    DefualtSuccesHandler defualtSuccesHandler;
+
 
     @Autowired
     CustomerUserDetailService customerUserDetailService;
 
+
+    private final AuthenticationProvider authenticationProvider;
+
+    public SecurityConfig(AuthenticationProvider authenticationProvider) {
+        this.authenticationProvider = authenticationProvider;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider);
+    }
+
+
     protected  void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
-                .antMatchers("/", "shop/**", "/forpassword", "/register", "/h2-console/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/", "shop/**", "/forpassword","/product", "/register", "/h2-console/**").permitAll()
+                .antMatchers("/admin/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
-                .successHandler(defualtSuccesHandler)
                 .permitAll()
-                .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .passwordParameter("password")
+                .failureUrl("/login?error=true")
+                .defaultSuccessUrl("/shop")
                 .and()
                 .oauth2Login().loginPage("/login")
                 .successHandler(goolgeOAuth2SuccesHandler)
@@ -59,6 +73,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable();
 
+
+
+
         http.headers().frameOptions().disable();
 
 
@@ -68,13 +85,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return  new BCryptPasswordEncoder();
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder  auth) throws Exception {
-        auth.userDetailsService(customerUserDetailService);
-    }
+
+
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**","/static/**", "/images/**","/productImages/**", "/css/**", "/js/**");
     }
+
+
 }

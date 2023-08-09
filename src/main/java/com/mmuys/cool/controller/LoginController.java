@@ -1,9 +1,11 @@
 package com.mmuys.cool.controller;
 
+import com.mmuys.cool.model.Role;
 import com.mmuys.cool.model.User;
 import com.mmuys.cool.repository.RoleRepository;
 import com.mmuys.cool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -40,14 +46,16 @@ public class LoginController {
                                    Model model) {
 
         Optional<User> user = userRepository.findUserByEmail(email);
-
-        if (user.isPresent() && user.get().getPassword().equals(password)) {
-            // Successful login, you can redirect to a home page or any other secured page
-            return "redirect:/home"; // Replace "/home" with your desired page URL
+        if (user.isPresent() ) {
+            if(BCrypt.checkpw(password, (user.get().getPassword()))){
+                return "redirect:/shop";
+            }
+            else{
+                return "login";
+            }
         } else {
-            // Invalid login, show an error message on the login page
             model.addAttribute("error", true);
-            return "login"; // Return the login page so that the user can try again
+            return "login";
         }
     }
 
@@ -58,11 +66,15 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user) {
-        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+    public String registerUser(@ModelAttribute User user, HttpServletRequest request) throws ServletException {
+        String password = user.getPassword();
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleRepository.findById(2).get());
+        user.setRoles(roles);
         userRepository.save(user);
-        return "redirect:/";
+        request.login(user.getEmail(), password);
+        return "redirect:/shop";
     }
 
 }

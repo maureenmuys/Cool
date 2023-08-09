@@ -1,6 +1,7 @@
 package com.mmuys.cool.model;
 
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import lombok.Data;
 
 
@@ -10,7 +11,6 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
-@Data
 @Table(name = "users")
 public class User {
 
@@ -51,6 +51,53 @@ public class User {
     public User() {
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }
 
 
