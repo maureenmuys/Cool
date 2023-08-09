@@ -1,5 +1,6 @@
 package com.mmuys.cool.controller;
 
+import com.mmuys.cool.global.GlobalData;
 import com.mmuys.cool.model.Role;
 import com.mmuys.cool.model.User;
 import com.mmuys.cool.repository.RoleRepository;
@@ -32,11 +33,11 @@ public class LoginController {
 
 
 
-    // Handler for GET requests to display the login form
     @GetMapping("/login")
     public String showLoginForm(Model model) {
-        model.addAttribute("error", false); // Initialize error to false (no error shown initially)
-        return "login"; // Return the login page
+        GlobalData.cart.clear();;
+        model.addAttribute("error", false);
+        return "login";
     }
 
     // Handler for POST requests to process the login form submission
