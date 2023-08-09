@@ -33,7 +33,7 @@ public class HomeController {
     @GetMapping({"/shop/category/{id}"})
     public String shopByCategory(Model model, @PathVariable int id){
         model.addAttribute("categories", categoryService.getAllCategory());
-        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("products", productService.getAllProductsByCategoryId(id));
         return "shop";
     }
 
