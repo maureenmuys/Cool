@@ -23,72 +23,86 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<!-- Biedt ondersteuning voor Java Persistence API (JPA) en database-interactie. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-client</artifactId>
 		</dependency>
+		<!-- Voegt OAuth 2.0-clientfunctionaliteit toe voor inloggen met OAuth 2.0-providerreferenties. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		<!-- Voegt Spring Security toe voor authenticatie en autorisatie om de applicatie te beveiligen. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<!-- Voegt Thymeleaf-templating-engine toe voor het maken van dynamische HTML- en XML-views. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- Biedt basisfunctionaliteit voor het maken van webapplicaties. -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- Voegt de H2-database toe voor testen en ontwikkeling. -->
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
-
+		<!-- Extra integratie tussen Thymeleaf en Spring Security 5 voor beveiligingsgerelateerde views. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<!-- Voegt Spring Boot DevTools toe voor ontwikkelingsgemak, met optionele runtime-toepassing. -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- Voegt de Lombok-bibliotheek toe voor het verminderen van boilerplate-code in Java-klassen. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Biedt ondersteuning voor het schrijven van tests voor Spring Boot-applicaties. -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Biedt testhulpmiddelen voor Spring Security-tests. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
+		<!-- Voegt validatie-ondersteuning toe aan Spring Boot voor het valideren van invoer. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- Verwerkt configuratie-annotaties en genereert configuratie-eigenschappen met optionele verwerking. -->
 		<dependency>
 			<groupId>com.paytm</groupId>
 			<artifactId>miniapp-sdk-client</artifactId>
 			<version>1.0.2-SNAPSHOT</version>
 		</dependency>
+		<!-- Afhankelijkheid voor Paytm Miniapp SDK-client met aangegeven versie. -->
 		<dependency>
 			<groupId>com.paytm</groupId>
 			<artifactId>paytm-checksum</artifactId>
 			<version>1.2.0</version>
 		</dependency>
+		<!-- Afhankelijkheid voor Paytm Checksum-bibliotheek met aangegeven versie. -->
 	</dependencies>
 	<repositories>
 		<repository>
